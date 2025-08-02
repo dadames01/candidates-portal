@@ -1,1 +1,18 @@
+<div class="app">
+  <form class="candidates-form" [formGroup]="candidatesForm" (ngSubmit)="onSubmit()">
+    <div class="candidates-form__field-group">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Surname</mat-label>
+        <input matInput formControlName="surname" required />
+      </mat-form-field>
+    </div>
+    <input formControlName="otherData" class="candidates-form__file-upload" type="file"
+      (change)="onFileSelected($event)" accept=".xlsx,.xls" required />
+    <button class="candidates-form__submit-button" type="submit" [disabled]="!candidatesForm.valid">Submit</button>
+  </form>
+</div>
 <router-outlet />
