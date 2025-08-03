@@ -1,4 +1,4 @@
-import { Component, signal, WritableSignal } from '@angular/core';
+import { Component, signal, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormControl, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,10 +16,17 @@ import { MatTableModule } from '@angular/material/table';
 export class AppComponent {
   constructor(private apiService: CandidatesApiService) { }
 
-  // Table stuff
   displayedColumns = ['name', 'surname', 'seniority', 'years', 'availability']
-  dataSource = signal<any[]>([]);
-  // 
+  dataSource = signal<any[]>(this.loadCachedResponses());
+
+  private loadCachedResponses(): any[] {
+    const saved = localStorage.getItem('candidates');
+    return saved ? JSON.parse(saved) : [];
+  }
+
+  private saveResponseInCache(responses: any[]) {
+    localStorage.setItem('candidates', JSON.stringify(responses));
+  }
 
   candidatesForm = new FormGroup({
     name: new FormControl(''),
@@ -52,7 +59,7 @@ export class AppComponent {
             fileInput.value = '';
           }
           this.dataSource.set([...this.dataSource(), res])
-          console.log(this.dataSource())
+          this.saveResponseInCache(this.dataSource())
         },
         error: (err) => console.error('POST error:', err)
       });
