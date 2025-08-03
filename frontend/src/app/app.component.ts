@@ -1,19 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, signal, WritableSignal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormControl, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CandidatesApiService } from './candidates-api.service';
+import { MatTableModule } from '@angular/material/table';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
+  imports: [RouterOutlet, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatTableModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   constructor(private apiService: CandidatesApiService) { }
+
+  // Table stuff
+  displayedColumns = ['name', 'surname', 'seniority', 'years', 'availability']
+  dataSource = signal<any[]>([]);
+  // 
 
   candidatesForm = new FormGroup({
     name: new FormControl(''),
@@ -38,13 +44,15 @@ export class AppComponent {
       formData.append('surname', this.candidatesForm.value.surname!);
       formData.append('file', this.selectedFile);
       this.apiService.postData(formData).subscribe({
-        next: () => {
+        next: (res) => {
           f.resetForm();
           this.selectedFile = null;
           const fileInput = document.querySelector<HTMLInputElement>('input[type="file"]');
           if (fileInput) {
             fileInput.value = '';
           }
+          this.dataSource.set([...this.dataSource(), res])
+          console.log(this.dataSource())
         },
         error: (err) => console.error('POST error:', err)
       });

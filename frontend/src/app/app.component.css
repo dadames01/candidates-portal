@@ -1,7 +1,9 @@
 .app {
     display: flex;
+    flex-direction: column;
     height: 100%;
     width: 100%;
+    gap: 20px;
     align-items: center;
     justify-content: center;
 }
@@ -29,4 +31,8 @@
 .candidates-form__submit-button {
     width: fit-content;
     align-self: flex-end;
+}
+
+.candidates-table {
+    width: 50%;
 }
