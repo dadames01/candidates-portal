@@ -2,9 +2,10 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'candidates-form',
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
   templateUrl: './candidates-form.component.html',
   styleUrl: './candidates-form.component.css'
 })

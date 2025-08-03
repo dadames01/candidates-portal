@@ -1,5 +1,6 @@
 <div>
     <form class="candidates-form" [formGroup]="candidatesForm" (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <h2>Candidates form</h2>
         <div class="candidates-form__field-group">
             <mat-form-field>
                 <mat-label>Name</mat-label>
@@ -12,7 +13,7 @@
         </div>
         <input (change)="onFileSelected($event)" class="candidates-form__file-upload" type="file" accept=".xlsx,.xls"
             required />
-        <button class="candidates-form__submit-button" type="submit"
+        <button mat-button class="candidates-form__submit-button" type="submit"
             [disabled]="!candidatesForm.valid || !selectedFile">Submit</button>
     </form>
 </div>
