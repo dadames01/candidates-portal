@@ -8,6 +8,6 @@
     justify-content: center;
 }
 
-.candidates-table {
-    width: 50%;
+.candidates-table__wrapper {
+    width: 80%;
 }
