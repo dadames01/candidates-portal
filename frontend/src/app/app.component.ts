@@ -25,6 +25,7 @@ export class AppComponent {
       },
       error: (err) => {
         console.error('API error:', err);
+        window.alert('There was an error while uploading the candidate\'s data')
       }
     });
   }
